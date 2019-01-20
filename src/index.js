@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 // TODO: Comments, Lint Errors, Star buttons, Star button colours, 
-// search on enter, host, Unit tests?
+// search on enter, host, Unit tests
 
 class App extends Component {
     constructor(props) {
