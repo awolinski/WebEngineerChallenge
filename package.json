@@ -4,7 +4,7 @@
   "description": "Internship web engineer challenge for Shopify summer 2019",
   "main": "index.js",
   "repository": "git@github.com:awolinski/WebEngineerChallenge.git",
-  "homepage": "http://awolinski.github.io/WebEngineerChallenge",
+  "homepage": ".",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
