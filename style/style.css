@@ -1,3 +1,5 @@
+/*  Style sheet for WebEngineerChallenge last modified January 20, 2019 */
+
 #title {
     text-align: center;
     line-height: 2em;
@@ -25,6 +27,7 @@
 .searchBar input {
     width: 90%;
 }
+
 #searchButton {
     text-align: right;
     width: 30px;
@@ -33,7 +36,30 @@
     right: 10%;
     background-image: url(../src/searchIcon.png);
     background-size: contain;
-  }
+}
+  
+.favButton {
+    background-color: white;
+    border: none;
+    outline: none;
+}
+
+td, th, tr {
+    padding: 20%;
+    vertical-align: top;
+    text-align: left;
+}
+
+#favRemoveButton {
+    background-color: mintcream;
+    color: rgb(12, 151, 93);
+    border: none;
+    outline: none;
+}
+
+#favouritesSection {
+    background-color: mintcream;
+}
 
 #noSearchResults {
     position: absolute;
