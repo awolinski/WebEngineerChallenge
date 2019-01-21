@@ -2,8 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-// TODO: Comments, Lint Errors, Star buttons, Star button colours, 
-// search on enter, host, Unit tests
+// Web Engineer Challenge: last modified January 20, 2019
 
 class App extends Component {
     constructor(props) {
@@ -16,31 +15,38 @@ class App extends Component {
             favourites: [],
         };
     }
-    // Add item to favourites list if not already favourited, otherwise 'unfavourite' it
 
+    // Add item to favourites list if not already favourited, otherwise 'unfavourite' it
     addToFavourites = (title, description) => {
         let favourite = true;
         const array = this.state.favourites;
         const newArray = array.filter((item) => {
             if (item[0] === title && item[1] === description) {
                 favourite = false;
+                document.getElementById(title).style.color = 'lightgrey';
             }
             return (item[0] !== title && item[1] !== description)
         });
         if (favourite) {
+            document.getElementById(title).style.color = 'rgb(12, 151, 93)';
             newArray.push([title, description]);
         };
         this.setState({ favourites: newArray });
     }
 
+    // Remove item from favourites list and change the star color back to light grey
     removeFromFavourites = (title, description) => {
         const array = this.state.favourites;
         const newArray = array.filter((item) => {
             return (item[0] !== title && item[1] !== description)
         });
+        if (document.getElementById(title)) {
+            document.getElementById(title).style.color = 'lightgrey';
+        }
         this.setState({ favourites: newArray });
     }
 
+    // Handle input changes in the search bar and hide results if clear button pressed
     onInputChange = (event) => {
         this.setState({ term : event.target.value });
         if (event.target.value.length === 0) {
@@ -48,12 +54,14 @@ class App extends Component {
         }
     }
 
-    clearTable = () => {
-        if (this.state.term === ''){
-            this.setState({ searchResults: {} });
+    // On key press in search bar, only trigger search if Enter pressed
+    checkForEnter = (event) => {
+        if (event.key === 'Enter') {
+            this.wasteSearch();
         }
     }
 
+    // Search Toronto Waste Wizard Database for keywords to match user search, then return results
     wasteSearch = () => {
         this.setState({ searchResults: {}, hideSearchResults: false });
         if (this.state.term){
@@ -71,12 +79,15 @@ class App extends Component {
         }
      }
 
+    // Function found on StackOverflow to decode JSON HTML special characters
     decodeHtml = (html) => {
-        var txt = document.createElement("textarea");
-        txt.innerHTML = html;
-        return txt.value;
+        const text = document.createElement("textarea");
+        text.innerHTML = html;
+        return text.value;
     }
 
+    // As search results are updated, a table is returned including a favourite button,
+    // title, and description for each result. Returns "No search results" otherwise
     renderTable = () => {
         if (this.state.searchResults.length > 0) {
             const resultsArray = Object.entries(this.state.searchResults);
@@ -88,7 +99,7 @@ class App extends Component {
                 return (
                     <tr>
                         <td>
-                            <button id="favButton" onClick={(event) => this.addToFavourites(title, description)}>Star</button>
+                            <button className="favButton" style={{color: 'lightgrey', outline: 'none'}} id={`${title}`} onClick={(event) => this.addToFavourites(title, description)}>&#x2605;</button>
                         </td>
                         <td>{title}</td>
                         <td dangerouslySetInnerHTML={{ __html: description}}></td>
@@ -98,11 +109,12 @@ class App extends Component {
         }
         else if (this.state.searchResults < 1 && this.state.term) {
             return (
-                <div id="noSearchResults"><br/>No search results<br/></div>
+                <div id="noSearchResults"><br/><strong>No search results</strong><br/></div>
             )
         }
     }
 
+    // Renders a table with the current list of favourites displayed and each item's info
     renderFavoritesTable = () => {
         if (this.state.favourites.length > 1) {
             return this.state.favourites.map((item) => {
@@ -112,7 +124,7 @@ class App extends Component {
                 return (
                     <tr>
                         <td>
-                            <button id="favRemoveButton" onClick={(event) => this.removeFromFavourites(title, item[1])}>Star</button>
+                            <button id="favRemoveButton" onClick={(event) => this.removeFromFavourites(title, item[1])}>&#x2605;</button>
                         </td>
                         <td>{title}</td>
                         <td dangerouslySetInnerHTML={{ __html: description}}></td>
@@ -122,6 +134,7 @@ class App extends Component {
         }
     }
 
+   // Renders page with title, search bar, and both tables
     render() {
         return (
         <div>
@@ -131,6 +144,7 @@ class App extends Component {
                 type="search"
                 value={this.state.term}
                 onChange={this.onInputChange}
+                onKeyPress={this.checkForEnter}
                 />
                 <button id="searchButton" onClick={this.wasteSearch}></button>
             </div>
@@ -142,7 +156,7 @@ class App extends Component {
                 </table>
             </div>
             <div><br />
-                <div hidden={this.state.favourites.length > 1 ? false : true}>
+                <div id="favouritesSection" hidden={this.state.favourites.length > 1 ? false : true}>
                     <h2 id="favouritesTitle">Favourites</h2>
                     <table>
                         <tbody>
