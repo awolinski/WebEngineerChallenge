@@ -1,6 +1,8 @@
 # Web Engineer Challenge - Internship Summer 2019
 
-Used boiler plate code to install packages etc. from git@github.com:StephenGrider/ReduxSimpleStarter.git Redux Simple Starter and adapted it.
+This application uses open source data from the Toronto Waste Wizard Database to create a search. The search retrieves relevant information that can be saved to a favourites list by clicking the star icon next to the item, and it can be removed from the list by again clicking the star icon. 
+
+The application was created with the help of some boiler plate code to help install packages etc. from git@github.com:StephenGrider/ReduxSimpleStarter.git Redux Simple Starter.
 
 #### To Run The Code
 Checkout this repo, install dependencies, then start the gulp process with the following:
