@@ -21,3 +21,4 @@ Download the .zip file.  Extract the contents of the zip file, then open your te
 > npm install
 > npm start
 ```
+https://github.com/awolinski/WebEngineerChallenge.github.io/blob/master/AppInAction.png
